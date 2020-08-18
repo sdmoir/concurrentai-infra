@@ -12,3 +12,7 @@ A collection of Pulumi TypeScript projects for deploying Concurrent.ai infrastru
 - Pulumi up
 - kubectl get services --all-namespaces
 - minikube service -n <org-namespace> <service-name> --url
+
+## Notes
+
+Service id can only contain letters and "-"
