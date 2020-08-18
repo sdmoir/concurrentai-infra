@@ -2,7 +2,6 @@ import * as k8s from "@pulumi/kubernetes";
 
 import { ModelConfig, ServiceConfig } from "../config";
 import { provider } from "../cluster/provider";
-import { secret as registrySecret } from "../cluster/registry";
 
 export function createModelService(
   serviceConfig: ServiceConfig,
@@ -28,11 +27,6 @@ export function createModelService(
                 ports: [{ containerPort: 8080 }],
                 image: modelConfig.config.image,
                 imagePullPolicy: "Always",
-              },
-            ],
-            imagePullSecrets: [
-              {
-                name: registrySecret.metadata.name,
               },
             ],
           },
