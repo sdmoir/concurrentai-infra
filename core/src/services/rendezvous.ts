@@ -21,7 +21,7 @@ export function createRendezvousService(serviceConfig: ServiceConfig) {
               {
                 name: "api",
                 ports: [{ containerPort: 9000 }],
-                image: `concurrentai/concurrentai-core-api:latest`,
+                image: `concurrentai/concurrentai-core-rendezvous-api:latest`,
                 imagePullPolicy: "Always",
                 env: [
                   {
@@ -46,7 +46,7 @@ export function createRendezvousService(serviceConfig: ServiceConfig) {
               },
               {
                 name: "collector",
-                image: `concurrentai/concurrentai-core-collector:latest`,
+                image: `concurrentai/concurrentai-core-rendezvous-collector:latest`,
                 imagePullPolicy: "Always",
                 env: [
                   {
