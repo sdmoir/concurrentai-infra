@@ -14,8 +14,8 @@ const krakendConfig = {
   timeout: "5000ms",
   cache_ttl: "300s",
   output_encoding: "json",
-  name: config.rendezvous.organizationId,
-  endpoints: (config.rendezvous.services || []).map((service) => ({
+  name: config.concurrentai.organizationId,
+  endpoints: (config.concurrentai.services || []).map((service) => ({
     endpoint: service.id,
     method: "GET",
     extra_config: {
@@ -32,14 +32,14 @@ const krakendConfig = {
     concurrent_calls: 1,
     backend: [
       {
-        host: `http://rendezvous-${service.id}/`,
+        host: `http://concurrentai-${service.id}-rendezvous/`,
       },
     ],
   })),
 };
 
 export const configMap = new k8s.core.v1.ConfigMap(
-  `krakend-config`,
+  `concurrentai-krakend-config`,
   {
     data: {
       "krakend.json": JSON.stringify(krakendConfig),

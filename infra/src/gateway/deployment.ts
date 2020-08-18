@@ -5,7 +5,7 @@ import { appLabels, metadata } from "./constants";
 import { provider } from "../cluster/provider";
 
 export const deployment = new k8s.apps.v1.Deployment(
-  "rendezvous-gateway-deployment",
+  "concurrentai-gateway-deployment",
   {
     metadata: metadata,
     spec: {

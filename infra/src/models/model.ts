@@ -9,11 +9,11 @@ export function createModelService(
   modelConfig: ModelConfig
 ) {
   const fullModelId = `${serviceConfig.id}-model-${modelConfig.id}`;
-  const metadata = { name: `rendezvous-${fullModelId}` };
-  const appLabels = { run: `rendezvous-${fullModelId}` };
+  const metadata = { name: `concurrentai-${fullModelId}` };
+  const appLabels = { run: `concurrentai-${fullModelId}` };
 
   const deployment = new k8s.apps.v1.Deployment(
-    `rendezvous-${fullModelId}-deployment`,
+    `concurrentai-${fullModelId}-deployment`,
     {
       metadata: metadata,
       spec: {
@@ -45,7 +45,7 @@ export function createModelService(
   );
 
   const service = new k8s.core.v1.Service(
-    `rendezvous-${fullModelId}-service`,
+    `concurrentai-${fullModelId}-service`,
     {
       metadata: metadata,
       spec: {

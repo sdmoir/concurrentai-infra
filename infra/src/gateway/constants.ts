@@ -1,2 +1,2 @@
-export const metadata = { name: "rendezvous-gateway" };
+export const metadata = { name: "concurrentai-gateway" };
 export const appLabels = { app: "krakend" };

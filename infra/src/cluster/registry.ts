@@ -4,7 +4,7 @@ import config from "../config";
 import { provider } from "./provider";
 
 export const secret = new k8s.core.v1.Secret(
-  "do-registry-secret",
+  "concurrentai-do-registry-secret",
   {
     metadata: {
       name: "do-registry",

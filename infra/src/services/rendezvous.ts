@@ -2,14 +2,13 @@ import * as k8s from "@pulumi/kubernetes";
 
 import config, { ServiceConfig } from "../config";
 import { provider } from "../cluster/provider";
-import { secret as registrySecret } from "../cluster/registry";
 
 export function createRendezvousService(serviceConfig: ServiceConfig) {
-  const metadata = { name: `rendezvous-${serviceConfig.id}` };
-  const appLabels = { run: `rendezvous-${serviceConfig.id}` };
+  const metadata = { name: `concurrentai-${serviceConfig.id}-rendezvous` };
+  const appLabels = { run: `concurrentai-${serviceConfig.id}-rendezvous` };
 
   const deployment = new k8s.apps.v1.Deployment(
-    `rendezvous-${serviceConfig.id}-deployment`,
+    `concurrentai-${serviceConfig.id}-rendezvous-deployment`,
     {
       metadata: metadata,
       spec: {
@@ -20,14 +19,14 @@ export function createRendezvousService(serviceConfig: ServiceConfig) {
           spec: {
             containers: [
               {
-                name: "rendezvous-api",
+                name: "api",
                 ports: [{ containerPort: 9000 }],
-                image: `registry.digitalocean.com/concurrent-ai/rendezvous-api:latest`,
+                image: `concurrentai/concurrentai-core-api:latest`,
                 imagePullPolicy: "Always",
                 env: [
                   {
                     name: "ORGANIZATION_ID",
-                    value: config.rendezvous.organizationId,
+                    value: config.concurrentai.organizationId,
                   },
                   {
                     name: "SERVICE_ID",
@@ -46,13 +45,13 @@ export function createRendezvousService(serviceConfig: ServiceConfig) {
                 ],
               },
               {
-                name: "rendezvous-collector",
-                image: `registry.digitalocean.com/concurrent-ai/rendezvous-collector:latest`,
+                name: "collector",
+                image: `concurrentai/concurrentai-core-collector:latest`,
                 imagePullPolicy: "Always",
                 env: [
                   {
                     name: "ORGANIZATION_ID",
-                    value: config.rendezvous.organizationId,
+                    value: config.concurrentai.organizationId,
                   },
                   {
                     name: "SERVICE_ID",
@@ -81,11 +80,6 @@ export function createRendezvousService(serviceConfig: ServiceConfig) {
                 emptyDir: {},
               },
             ],
-            imagePullSecrets: [
-              {
-                name: registrySecret.metadata.name,
-              },
-            ],
           },
         },
       },
@@ -96,7 +90,7 @@ export function createRendezvousService(serviceConfig: ServiceConfig) {
   );
 
   const service = new k8s.core.v1.Service(
-    `rendezvous-${serviceConfig.id}-service`,
+    `concurrentai-${serviceConfig.id}-rendezvous-service`,
     {
       metadata: metadata,
       spec: {

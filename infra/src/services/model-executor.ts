@@ -2,13 +2,12 @@ import * as k8s from "@pulumi/kubernetes";
 
 import config, { ServiceConfig, ModelConfig } from "../config";
 import { provider } from "../cluster/provider";
-import { secret as registrySecret } from "../cluster/registry";
 
 export function createModelExecutor(
   serviceConfig: ServiceConfig,
   modelConfig: ModelConfig
 ) {
-  const fullModelExecutorId = `rendezvous-${serviceConfig.id}-model-${modelConfig.id}-executor`;
+  const fullModelExecutorId = `concurrentai-${serviceConfig.id}-model-${modelConfig.id}-executor`;
   const metadata = { name: fullModelExecutorId };
   const appLabels = { run: fullModelExecutorId };
 
@@ -25,12 +24,12 @@ export function createModelExecutor(
             containers: [
               {
                 name: "model-executor",
-                image: `registry.digitalocean.com/concurrent-ai/rendezvous-model-executor:latest`,
+                image: `concurrentai/concurrentai-core-model-executor:latest`,
                 imagePullPolicy: "Always",
                 env: [
                   {
                     name: "ORGANIZATION_ID",
-                    value: config.rendezvous.organizationId,
+                    value: config.concurrentai.organizationId,
                   },
                   {
                     name: "SERVICE_ID",
@@ -42,18 +41,13 @@ export function createModelExecutor(
                   },
                   {
                     name: "MODEL_ENDPOINT",
-                    value: `http://rendezvous-${serviceConfig.id}-model-${modelConfig.id}/invocations`,
+                    value: `http://concurrentai-${serviceConfig.id}-model-${modelConfig.id}/invocations`,
                   },
                   {
                     name: "PULSAR_URL",
                     value: config.pulsar.url,
                   },
                 ],
-              },
-            ],
-            imagePullSecrets: [
-              {
-                name: registrySecret.metadata.name,
               },
             ],
           },

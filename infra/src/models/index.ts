@@ -2,7 +2,7 @@ import { createModelService } from "./model";
 
 import config, { ServiceConfig } from "../config";
 
-const models = config.rendezvous.services.reduce(
+const models = config.concurrentai.services.reduce(
   (models: Record<string, any>, service: ServiceConfig) => {
     models[service.id] = service.models.map((model) =>
       createModelService(service, model)

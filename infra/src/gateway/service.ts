@@ -6,17 +6,17 @@ import { appLabels, metadata } from "./constants";
 import { provider } from "../cluster/provider";
 
 // export const certificate = new digitalocean.Certificate(
-//   `certificate-${config.rendezvous.organizationId}`,
+//   `certificate-${config.concurrentai.organizationId}`,
 //   {
 //     type: "lets_encrypt",
 //     domains: [
-//       `${config.rendezvous.organizationId}.${config.rendezvous.region}.concurrent.ai`,
+//       `${config.concurrentai.organizationId}.${config.concurrentai.region}.concurrent.ai`,
 //     ],
 //   }
 // );
 
 export const service = new k8s.core.v1.Service(
-  "rendezvous-gateway-service",
+  "concurrentai-gateway-service",
   {
     metadata: {
       ...metadata,
@@ -42,11 +42,11 @@ export const service = new k8s.core.v1.Service(
 );
 
 // export const dns = new digitalocean.DnsRecord(
-//   `dns-${config.rendezvous.organizationId}`,
+//   `dns-${config.concurrentai.organizationId}`,
 //   {
 //     domain: "concurrent.ai",
 //     type: "A",
-//     name: `${config.rendezvous.organizationId}.${config.rendezvous.region}`,
+//     name: `${config.concurrentai.organizationId}.${config.concurrentai.region}`,
 //     value: service.status.loadBalancer.apply(
 //       (lb) => lb.ingress[0].ip || lb.ingress[0].hostname
 //     ),

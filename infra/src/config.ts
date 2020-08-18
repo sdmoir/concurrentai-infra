@@ -22,7 +22,7 @@ export interface ServiceConfig {
   models: [ModelConfig];
 }
 
-export interface RendezvousConfig {
+export interface ConcurrentAiConfig {
   organizationId: string;
   region: string;
   services: [ServiceConfig];
@@ -32,7 +32,7 @@ export interface InfraConfig {
   isMinikube: boolean;
   digitalocean: DigitalOceanConfig;
   pulsar: PulsarConfig;
-  rendezvous: RendezvousConfig;
+  concurrentai: ConcurrentAiConfig;
 }
 
 const config = new pulumi.Config();
@@ -41,7 +41,7 @@ const infraConfig: InfraConfig = {
   isMinikube: config.getBoolean("isMinikube") || false,
   digitalocean: config.requireObject<DigitalOceanConfig>("digitalocean"),
   pulsar: config.requireObject<PulsarConfig>("pulsar"),
-  rendezvous: config.requireObject<RendezvousConfig>("rendezvous"),
+  concurrentai: config.requireObject<ConcurrentAiConfig>("concurrentai"),
 };
 
 export default infraConfig;

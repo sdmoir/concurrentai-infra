@@ -3,7 +3,7 @@ import { createRendezvousService } from "./rendezvous";
 import { createModelEnricher } from "./enricher";
 import { createModelExecutor } from "./model-executor";
 
-const services = (config.rendezvous.services || []).map((service) => {
+const services = (config.concurrentai.services || []).map((service) => {
   let services = [
     createRendezvousService(service),
     createModelEnricher(service),

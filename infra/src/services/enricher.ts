@@ -2,14 +2,13 @@ import * as k8s from "@pulumi/kubernetes";
 
 import config, { ServiceConfig } from "../config";
 import { provider } from "../cluster/provider";
-import { secret as registrySecret } from "../cluster/registry";
 
 export function createModelEnricher(serviceConfig: ServiceConfig) {
-  const metadata = { name: `rendezvous-${serviceConfig.id}-model-enricher` };
-  const appLabels = { run: `rendezvous-${serviceConfig.id}-model-enricher` };
+  const metadata = { name: `concurrentai-${serviceConfig.id}-model-enricher` };
+  const appLabels = { run: `concurrentai-${serviceConfig.id}-model-enricher` };
 
   const deployment = new k8s.apps.v1.Deployment(
-    `rendezvous-${serviceConfig.id}-model-enricher-deployment`,
+    `concurrentai-${serviceConfig.id}-model-enricher-deployment`,
     {
       metadata: metadata,
       spec: {
@@ -21,12 +20,12 @@ export function createModelEnricher(serviceConfig: ServiceConfig) {
             containers: [
               {
                 name: "model-enricher",
-                image: `registry.digitalocean.com/concurrent-ai/rendezvous-model-enricher:latest`,
+                image: `concurrentai/concurrentai-core-model-enricher:latest`,
                 imagePullPolicy: "Always",
                 env: [
                   {
                     name: "ORGANIZATION_ID",
-                    value: config.rendezvous.organizationId,
+                    value: config.concurrentai.organizationId,
                   },
                   {
                     name: "SERVICE_ID",
@@ -37,11 +36,6 @@ export function createModelEnricher(serviceConfig: ServiceConfig) {
                     value: config.pulsar.url,
                   },
                 ],
-              },
-            ],
-            imagePullSecrets: [
-              {
-                name: registrySecret.metadata.name,
               },
             ],
           },
