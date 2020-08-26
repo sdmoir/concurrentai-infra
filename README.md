@@ -8,7 +8,7 @@ Concurrent.ai is a platform that enables you to get started with machine learnin
 
 Concurrent.ai stacks are deployed to Kubernetes via [Pulumi](https://www.pulumi.com/) projects. Pulumi is a great fit for Concurrent.ai because it makes dynamic generation of deployment configurations for Kubernetes really easy since infrastructure is written as actual code instead of yaml files.
 
-For more background on the core components of Concurrent.ai, see **[concurrentai/concurrentai-infra](https://github.com/concurrentai/concurrentai-infra)**.
+For more background on the core components of Concurrent.ai, see **[concurrentai/concurrentai-core](https://github.com/concurrentai/concurrentai-core)**.
 
 ## Getting Started (_WIP_)
 
