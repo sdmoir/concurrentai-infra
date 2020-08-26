@@ -17,6 +17,7 @@ In order to deploy a Concurrent.ai stack locally, you must have the following in
 - Pulumi
   - Sign up for an account (free)
   - Install the [Pulumi CLI](https://www.pulumi.com/docs/reference/cli/)
+- [Node.js](https://nodejs.org/en/)
 
 ### Minikube setup
 
@@ -56,7 +57,13 @@ docker-compose exec pulsar /bin/bash -c "/pulsar/initialize.sh <your_org_name> <
 
 The values you set for `<your_org_name>` and `<your_ml_service_name>` here will need to match what you configure for the Concurrent.ai stack in subsequent steps.
 
-Now you're ready to deploy a Concurrent.ai stack!
+You're almost ready to deploy a Concurrent.ai stack!
+
+### Pulumi setup
+
+If you haven't already, [sign up for a free Pulumi account](https://app.pulumi.com/signup) and [install the Pulumi CLI](https://www.pulumi.com/docs/get-started/install/).
+
+Once you have an account, go to your account settings and create an access token. Copy the access token for the next step.
 
 ### Deploy Concurrent.ai
 
@@ -66,8 +73,14 @@ cd core
 
 pulumi stack init <your_pulumi_username>/concurrentai/minikube
 ```
+Enter the Pulumi access token that you created in the previous step when prompted.
 
-Create a `concurrentai.json` configuration file, then add its contents to the Pulumi stack config.
+Install dependencies:
+```bash
+npm install
+```
+
+Next, within the `core/` directory, create a `concurrentai.json` configuration file and add its contents to the Pulumi stack config.
 
 Example `concurrentai.json` file:
 ```json
@@ -113,7 +126,7 @@ pulumi config set isMinikube true
 ```bash
 MINIKUBE_IP=$(minikube ssh "cat /etc/hosts | grep host.minikube.internal | cut -d$'\t' -f1")
 
-pulumi config set pulsar.url pulsar://$MINIKUBE_IP:6650
+pulumi config set --path pulsar.url pulsar://${MINIKUBE_IP/$'\r'/}:6650
 ```
 
 And then finally:
@@ -124,6 +137,8 @@ pulumi up
 
 pulumi up -y  # to auto-confirm deployment
 ```
+
+This may take a few minutes since the demo model Docker images are rather large.
 
 Once the pulumi deployment is complete, you can set your current `kubectl` context for convenience:
 ```bash
@@ -150,5 +165,5 @@ minikube service -n concurrentai-<your_org_name>-<random> concurrentai-gateway -
 
 For the demo models, you can run the following script to make a sample curl request:
 ```bash
-./demo-inference-request.sh <minikube_service_port>
+./getting-started/demo-inference-request.sh <minikube_service_port>
 ```
