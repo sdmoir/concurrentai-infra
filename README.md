@@ -1,18 +1,27 @@
+![Header](https://github.com/concurrentai/concurrentai-core/raw/main/misc/images/header.png)
+
+Concurrent.ai is a platform that enables you to get started with machine learning in a rapid and evolvable way.
+
 # concurrentai-infra
 
-A collection of Pulumi TypeScript projects for deploying Concurrent.ai infrastructure to Kubernetes
+## Overview
 
-## Getting Started
+Concurrent.ai stacks are deployed to Kubernetes via [Pulumi](https://www.pulumi.com/) projects. Pulumi is a great fit for Concurrent.ai because it makes dynamic generation of deployment configurations for Kubernetes really easy since infrastructure is written as actual code instead of yaml files.
 
-- Install minikube
-- minikube dashboard
-- Install pulsar helm chart
-- Create pulsar tenant and namespace
-- Configure Pulumi
-- Pulumi up
-- kubectl get services --all-namespaces
-- minikube service -n <org-namespace> <service-name> --url
+For more background on the core components of Concurrent.ai, see **[concurrentai/concurrentai-infra](https://github.com/concurrentai/concurrentai-infra)**.
 
-## Notes
+## Getting Started (_WIP_)
 
-Service id can only contain letters and "-"
+Follow the [Getting Started](getting-started) guide to get up and running with your own Concurrent.ai stack. Fair warning, it's a lot of setup right now! Many improvements will hopefully be coming in the near future though, such as a dedicated CLI and API.
+
+## Roadmap
+
+See the [Concurrent.ai Roadmap](https://github.com/orgs/concurrentai/projects/1) project for an up-to-date roadmap.
+
+## Contributing
+
+Pull requests are welcome! A contributing guide will be coming soon. Everyone contributing to Concurrent.ai repositories or engaging in discussion is expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## License
+
+Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).

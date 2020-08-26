@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  pulsar:
+    image: apachepulsar/pulsar:2.6.0
+    container_name: pulsar
+    ports:
+      - 8080:8080
+      - 6650:6650
+    environment:
+      PULSAR_MEM: " -Xms512m -Xmx512m -XX:MaxDirectMemorySize=1g"
+    volumes:
+      - pulsardata:/pulsar/data
+      - pulsarconf:/pulsar/conf
+      - ./initialize-pulsar.sh:/pulsar/initialize.sh
+    command: /bin/bash -c "bin/pulsar standalone"
+
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: concurrentai
+      MONGO_INITDB_ROOT_PASSWORD: concurrentai
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data/db
+
+volumes:
+  pulsardata:
+  pulsarconf:
+  mongo:
