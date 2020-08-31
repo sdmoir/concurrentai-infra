@@ -23,7 +23,7 @@ In order to deploy a Concurrent.ai stack locally, you must have the following in
 
 In a new terminal, create a Minikube cluster by running:
 ```bash
-minikube start
+minikube start --memory 4096
 ```
 
 Start the Kubernetes dashboard to verify that Minikube is running successfully:
