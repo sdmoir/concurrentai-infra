@@ -17,5 +17,5 @@ bin/pulsar-admin sinks localrun \
     --tenant $ORG_NAME \
     --namespace $SERVICE_NAME \
     --name mongo-concurrentai-sink \
-    --sink-config '{"mongoUri":"mongodb://concurrentai:concurrentai@host.docker.internal:27017","database": "$ORG_NAME","collection":"$SERVICE_NAME"}' \
+    --sink-config '{"mongoUri":"mongodb://concurrentai:concurrentai@host.docker.internal:27017","database": "'"$ORG_NAME"'","collection":"'"$SERVICE_NAME"'"}' \
     --inputs $ORG_NAME/$SERVICE_NAME/model-response
